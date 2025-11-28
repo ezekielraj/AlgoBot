@@ -39,3 +39,12 @@
 
 # debug information files
 *.dwo
+
+# VSCode settings
+.vscode/
+
+# CMake build folder
+build/
+
+# Build script
+build.sh
