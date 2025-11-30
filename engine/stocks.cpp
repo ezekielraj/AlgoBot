@@ -1,7 +1,13 @@
 #include <iostream>
 #include "stocks.h"
-#include "RequestTask.h"
-
+#include "IndexLists.h"
+#include "StockLists.h"
+#include "stocksdb.h"
+#include "StockData.h"
+#include "StockMetaData.h"
+#include "StockQuoteData.h"
+#include "StockYearWiseData.h"
+using json = nlohmann::json;
 int main() {
     
     /*RequestTask task("https://www.nseindia.com/api/equity-master");
@@ -11,7 +17,51 @@ int main() {
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
     }*/
+    IndexLists indexLists;
+    std::vector<std::unique_ptr<StockLists>> stockLists;
+    std::unique_ptr<StockMetaData> stockMetaData;
+    std::unique_ptr<StockQuoteData> stockQuoteData;
+    std::unique_ptr<StockYearWiseData> stockYearWiseData;
+    std::vector<json> v;
+    try {
+        StocksDB sdb;
 
+        std::vector<std::string> response = indexLists.fetchIndexList();
+        std::vector<std::vector<std::string>> vectorLists = indexLists.getList();
+        std::vector<std::pair<std::string, StockData>> tempStockList;
+        for (const std::vector<std::string>& vectorList : vectorLists) {
+            for (const std::string& index : vectorList) {
+                //std::cout << index << std::endl;
+                stockLists.push_back(std::make_unique<StockLists>(index));
+                StockLists* ptr = stockLists.back().get();
+                ptr->fetchStockList();
+                tempStockList = ptr->getList();
+                for(std::pair<std::string, StockData>& stock : tempStockList)
+                {
+                    std::cout << stock.first << std::endl; 
+                    stockMetaData = std::make_unique<StockMetaData>(stock.first);
+                    stockMetaData->fetchStockMetaData();
+                    stock.second.market_type = stockMetaData->getData();
+                    if(!sdb.checkEntryExists(stock.first))
+                    {
+                        stockQuoteData = std::make_unique<StockQuoteData>(stock.second.market_type, stock.second.series, stock.second.symbol);
+                        stockYearWiseData = std::make_unique<StockYearWiseData>(stock.second.symbol, stock.second.market_type, stock.second.series);
+                        stockQuoteData->fetchStockQuoteData();
+                        stockYearWiseData->fetchStockWeekData();
+                        std::string pevalue = stockQuoteData->getData();
+                        double weak_change_per = stockYearWiseData->getData();
+                        if(pevalue != "0" && weak_change_per != 0){
+                            sdb.addEntry(stock.second.symbol, pevalue, weak_change_per);
+                        }
+                    }
+                }                
+            }
+        }
+
+
+    } catch (const std::exception& e) {
+        std::cerr << "Error fetching index list: " << e.what() << std::endl;
+    }
     
     std::cout << "Stocks" << std::endl;
     return 0;
