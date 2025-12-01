@@ -39,11 +39,11 @@ int main() {
                 for(std::pair<std::string, StockData>& stock : tempStockList)
                 {
                     std::cout << stock.first << std::endl; 
-                    stockMetaData = std::make_unique<StockMetaData>(stock.first);
-                    stockMetaData->fetchStockMetaData();
-                    stock.second.market_type = stockMetaData->getData();
                     if(!sdb.checkEntryExists(stock.first))
                     {
+                        stockMetaData = std::make_unique<StockMetaData>(stock.first);
+                        stockMetaData->fetchStockMetaData();
+                        stock.second.market_type = stockMetaData->getData();
                         stockQuoteData = std::make_unique<StockQuoteData>(stock.second.market_type, stock.second.series, stock.second.symbol);
                         stockYearWiseData = std::make_unique<StockYearWiseData>(stock.second.symbol, stock.second.market_type, stock.second.series);
                         stockQuoteData->fetchStockQuoteData();
