@@ -42,9 +42,14 @@
 
 # VSCode settings
 .vscode/
-
+.vscode/settings.json
 # CMake build folder
 build/
 
 # Build script
 build.sh
+
+# DB files
+*.db
+
+CMakeLists.txt
