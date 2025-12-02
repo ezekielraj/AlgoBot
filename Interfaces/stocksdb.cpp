@@ -68,9 +68,9 @@ bool StocksDB::checkEntryExists(const std::string &symbol)
     return false;
 }
 
-bool StocksDB::addEntry(std::string &symbol, std::string &p_e, double &wcp)
+bool StocksDB::addEntry(std::string &symbol, std::string &p_e, double &wcp, std::string &mtype, std::string &series)
 {
-    db->executePrepared("INSERT INTO stocks (symbol, p_e, week_change_per) VALUES (?, ?, ?);", {symbol, p_e, std::to_string(wcp)});
+    db->executePrepared("INSERT INTO stocks (symbol, p_e, week_change_per, mtype, series) VALUES (?, ?, ?, ?, ?);", {symbol, p_e, std::to_string(wcp), mtype, series});
       
     return true;
 }
@@ -82,6 +82,6 @@ void StocksDB::changeDBNameToYesterday(){
 
 std::vector<std::vector<std::string>> StocksDB::searchStock()
 {
-    auto rows = db->query("select symbol from stocks where P_E < 30 and week_change_per < -5;");
+    auto rows = db->query("select * from stocks where P_E < 30 and week_change_per < -5;");
     return rows;
 }

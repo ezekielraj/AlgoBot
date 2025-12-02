@@ -9,7 +9,7 @@ StocksDB::StocksDB()
     : dbname(generateTodayDate())
     , db(std::make_unique<SQLiteDB>(dbname))
 {
-    db->execute("CREATE TABLE IF NOT EXISTS stocks (id INTEGER PRIMARY KEY AUTOINCREMENT, symbol TEXT NOT NULL, p_e REAL, week_change_per REAL);");
+    db->execute("CREATE TABLE IF NOT EXISTS stocks (id INTEGER PRIMARY KEY AUTOINCREMENT, symbol TEXT NOT NULL, p_e REAL, week_change_per REAL, mtype text not null, series text not null);");
 }
 
 std::string StocksDB::generateTodayDate()
@@ -68,9 +68,9 @@ bool StocksDB::checkEntryExists(const std::string &symbol)
     return false;
 }
 
-bool StocksDB::addEntry(std::string &symbol, std::string &p_e, double &wcp)
+bool StocksDB::addEntry(std::string &symbol, std::string &p_e, double &wcp, std::string &mtype, std::string &series)
 {
-    db->executePrepared("INSERT INTO stocks (symbol, p_e, week_change_per) VALUES (?, ?, ?);", {symbol, p_e, std::to_string(wcp)});
+    db->executePrepared("INSERT INTO stocks (symbol, p_e, week_change_per, mtype, series) VALUES (?, ?, ?, ?, ?);", {symbol, p_e, std::to_string(wcp), mtype, series});
       
     return true;
 }

@@ -1,11 +1,11 @@
-#include "boughtdb.h"
+#include "boughtdbc.h"
 #include <chrono>
 #include <iomanip>
 #include <sstream>
 #include <ctime>
 #include <string>
 
-BoughtDB::BoughtDB()
+BoughtDBC::BoughtDBC()
     : dbname("bought.db")
     , db(std::make_unique<SQLiteDB>(dbname))
 {
@@ -13,29 +13,35 @@ BoughtDB::BoughtDB()
 }
 
 
-std::string BoughtDB::getDBName() const
+std::string BoughtDBC::getDBName() const
 {
     return dbname;
 }
 
-bool BoughtDB::checkEntryExists(const std::string &symbol)
+std::vector<std::string> BoughtDBC::checkEntryExists(const std::string &symbol)
 {
-    auto rows = db->query("SELECT * FROM boughtStocks where symbol = '" + symbol + "';");
-    if(rows.size())
+    auto rows = db->query("SELECT * FROM boughtStocks where symbol = '" + symbol + "' limit 1;");
+    std::vector<std::string> result;
+    for( auto& row : rows)
     {
-        return true;
+        result.push_back(row[0]);
+        result.push_back(row[1]);
+        result.push_back(row[2]);
+        result.push_back(row[3]);
+        result.push_back(row[4]);
+        break;
     }
-    return false;
+    return result;
 }
 
-bool BoughtDB::addEntry(std::string &symbol, std::string &boughtvalue, std::string &mtype, std::string &series)
+bool BoughtDBC::addEntry(std::string &symbol, std::string &boughtvalue, std::string &mtype, std::string &series)
 {
     db->executePrepared("INSERT INTO boughtStocks (symbol, boughtvalue, mtype, series) VALUES (?, ?, ?, ?);", {symbol, boughtvalue, mtype, series});
       
     return true;
 }
 
-std::vector<std::string> BoughtDB::getAllBoughtStocks()
+std::vector<std::string> BoughtDBC::getAllBoughtStocks()
 {
     std::vector<std::string> boughtStocks;
     auto rows = db->query("SELECT distinct(symbol) FROM boughtStocks;");

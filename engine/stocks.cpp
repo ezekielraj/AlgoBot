@@ -51,7 +51,7 @@ int main() {
                         std::string pevalue = stockQuoteData->getData();
                         double weak_change_per = stockYearWiseData->getData();
                         if(pevalue != "0" && weak_change_per != 0){
-                            sdb.addEntry(stock.second.symbol, pevalue, weak_change_per);
+                            sdb.addEntry(stock.second.symbol, pevalue, weak_change_per, stock.second.market_type, stock.second.series);
                         }
                     }
                 }                

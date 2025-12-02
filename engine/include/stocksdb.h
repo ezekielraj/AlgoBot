@@ -15,7 +15,7 @@ private:
 public:
     StocksDB();
     bool checkEntryExists(const std::string &symbol);
-    bool addEntry(std::string &symbol, std::string &p_e, double &wcp);
+    bool addEntry(std::string &symbol, std::string &p_e, double &wcp, std::string &mtype, std::string &series);
     std::string getDBName() const;
     std::vector<std::vector<std::string>> searchStock();
     void setDBName(const std::string &name) { dbname = name; }
