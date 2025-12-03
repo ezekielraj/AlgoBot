@@ -1,0 +1,6 @@
+/mnt/c/Users/k64066333/projects/AlgoBot/build/CMakeFiles/AlgoBot.dir
+/mnt/c/Users/k64066333/projects/AlgoBot/build/CMakeFiles/Stocks.dir
+/mnt/c/Users/k64066333/projects/AlgoBot/build/CMakeFiles/Interfaces.dir
+/mnt/c/Users/k64066333/projects/AlgoBot/build/CMakeFiles/SellInterface.dir
+/mnt/c/Users/k64066333/projects/AlgoBot/build/CMakeFiles/edit_cache.dir
+/mnt/c/Users/k64066333/projects/AlgoBot/build/CMakeFiles/rebuild_cache.dir
