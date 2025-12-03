@@ -29,15 +29,28 @@ int main() {
         std::vector<std::string> response = indexLists.fetchIndexList();
         std::vector<std::vector<std::string>> vectorLists = indexLists.getList();
         std::vector<std::pair<std::string, StockData>> tempStockList;
+
+size_t total = 0;
+for (const auto& inner : vectorLists) {
+    total += inner.size();
+}
+size_t totalsize = 0;
+int i =0;
+int j =1;
+
         for (const std::vector<std::string>& vectorList : vectorLists) {
             for (const std::string& index : vectorList) {
+                i++;
+                j=1;
                 //std::cout << index << std::endl;
                 stockLists.push_back(std::make_unique<StockLists>(index));
                 StockLists* ptr = stockLists.back().get();
                 ptr->fetchStockList();
                 tempStockList = ptr->getList();
+                totalsize = tempStockList.size();
                 for(std::pair<std::string, StockData>& stock : tempStockList)
                 {
+                    std::cout <<j++ << "/" << totalsize << " "<< i << "/" << total << " ";
                     std::cout << stock.first << std::endl; 
                     if(!sdb.checkEntryExists(stock.first))
                     {
