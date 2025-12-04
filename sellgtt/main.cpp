@@ -1,6 +1,6 @@
 #include<iostream>
-using namespace std;
 #include "boughtdbc.h"
+using namespace std;
 
 int main() {
 
