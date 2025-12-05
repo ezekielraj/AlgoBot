@@ -5,7 +5,7 @@
 #include "boughtdbc.h"
 int main()
 {
-    std::cout << "Sell Interface" << std::endl;
+//    std::cout << "Sell Interface" << std::endl;
     BoughtDB bdb;
     BoughtDBC bdbc;
     std::vector<std::string> boughtStocks = bdb.getAllBoughtStocks();
@@ -28,6 +28,6 @@ int main()
 
         
     }
-std::cout << "Sell Interface End" << std::endl;    
+//std::cout << "Sell Interface End" << std::endl;    
 return 0;
 }
