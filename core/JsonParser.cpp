@@ -4,6 +4,10 @@
 
 using json = nlohmann::json;
 
+void JsonParser::setClassname(std::string classname) {
+    this->classname = classname;
+}
+
 json JsonParser::toJson(const std::string& jsonStr) {
     try {
         json j = json::parse(jsonStr);      // j is a STRING, not array
@@ -13,7 +17,7 @@ json JsonParser::toJson(const std::string& jsonStr) {
         return j; //json::parse(jsonStr);
     } 
     catch (const std::exception& e) {
-        throw std::runtime_error(std::string("JSON parse error: ") + e.what());
+        throw std::runtime_error(std::string("JSON parse error: ") + e.what() + jsonStr + this->classname);
     }
 }
 

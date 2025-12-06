@@ -5,7 +5,9 @@
 
 using json = nlohmann::json;
 
-StockMetaData::StockMetaData(const std::string &rqData) {
+StockMetaData::StockMetaData(const std::string &rqData) 
+{
+    jsonParser.setClassname(std::string("StockMetaData"));
     StringCleaner sc(rqData);
     requestData = sc.url_encode(rqData);
     
