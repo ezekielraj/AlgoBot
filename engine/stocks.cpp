@@ -50,6 +50,7 @@ int j =1;
                 totalsize = tempStockList.size();
                 for(std::pair<std::string, StockData>& stock : tempStockList)
                 {
+                    
                     std::cout <<j++ << "/" << totalsize << " "<< i << "/" << total << " ";
                     std::cout << stock.first << "\r" << std::flush; 
                     if(!sdb.checkEntryExists(stock.first))

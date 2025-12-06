@@ -6,6 +6,7 @@
 using json = nlohmann::json;
 
 StockQuoteData::StockQuoteData(const std::string &type, const std::string &series, const std::string &symbol) {
+    jsonParser.setClassname(std::string("StockQuoteData"));
     StringCleaner sc(type);
     std::string _type = sc.url_encode(type);
     

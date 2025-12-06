@@ -6,6 +6,7 @@
 using json = nlohmann::json;
 
 StockYearWiseData::StockYearWiseData(const std::string &rqData, const std::string &markettype, const std::string &series) {
+    jsonParser.setClassname(std::string("StockYearWiseData"));
     StringCleaner sc(rqData);
     std::string _symbol = sc.url_encode(rqData);
     

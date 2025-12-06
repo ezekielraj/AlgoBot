@@ -7,6 +7,7 @@ using json = nlohmann::json;
 
 IndexLists::IndexLists() {
     task.setUrl(url);
+    jsonParser.setClassname(std::string("IndexLists"));
 }
 
 std::vector<std::string> IndexLists::fetchIndexList() {

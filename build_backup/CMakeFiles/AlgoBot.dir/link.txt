@@ -1,1 +1,0 @@
-/usr/bin/c++ -O3 -DNDEBUG CMakeFiles/AlgoBot.dir/src/main.cpp.o CMakeFiles/AlgoBot.dir/core/HttpClient.cpp.o CMakeFiles/AlgoBot.dir/core/JsonParser.cpp.o CMakeFiles/AlgoBot.dir/core/RequestTask.cpp.o CMakeFiles/AlgoBot.dir/core/StringCleaner.cpp.o CMakeFiles/AlgoBot.dir/core/sqlitedb.cpp.o -o AlgoBot  /usr/lib/x86_64-linux-gnu/libcurl.so /usr/lib/x86_64-linux-gnu/libsqlite3.so 

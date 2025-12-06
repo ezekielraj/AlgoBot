@@ -4,8 +4,15 @@
 #include <nlohmann/json.hpp>
 #include "StockData.h"
 class JsonParser {
+private:
+    std::string classname;
 public:
-    JsonParser() = default;
+    JsonParser()
+    {
+        this->classname = std::string("notset");
+    }
+    
+    void setClassname(std::string classname);
 
     // Convert JSON string → array (vector of JSON objects)
     std::vector<std::string> toArray(const std::string& jsonStr, std::vector<std::vector<std::string>> &result);
