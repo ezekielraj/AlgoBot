@@ -51,7 +51,7 @@ int j =1;
                 for(std::pair<std::string, StockData>& stock : tempStockList)
                 {
                     std::cout <<j++ << "/" << totalsize << " "<< i << "/" << total << " ";
-                    std::cout << stock.first << std::endl; 
+                    std::cout << stock.first << "\r" << std::flush; 
                     if(!sdb.checkEntryExists(stock.first))
                     {
                         stockMetaData = std::make_unique<StockMetaData>(stock.first);
