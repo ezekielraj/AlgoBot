@@ -49,5 +49,7 @@ build/
 # Build script
 build.sh
 
+2026*
+2025*
 
 CMakeLists.txt
