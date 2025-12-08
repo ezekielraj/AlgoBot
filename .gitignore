@@ -52,4 +52,6 @@ build.sh
 2026*
 2025*
 
+.env
+
 CMakeLists.txt
