@@ -82,6 +82,6 @@ void StocksDB::changeDBNameToYesterday(){
 
 std::vector<std::vector<std::string>> StocksDB::searchStock()
 {
-    auto rows = db->query("select * from stocks where P_E < 30 and week_change_per < -5;");
+    auto rows = db->query("select * from stocks where P_E >20 and P_E < 30 and week_change_per < -5;");
     return rows;
 }
