@@ -54,6 +54,7 @@ std::vector<std::string> BoughtDBC::getAllBoughtStocks()
 std::vector<std::vector<std::string>> BoughtDBC::getAll()
 {
     std::vector<std::string> boughtStocks;
-    auto rows = db->query("SELECT * FROM boughtStocks;");
+//auto rows = db->query("SELECT * FROM boughtStocks;");
+  auto rows = db->query("SELECT t.* FROM boughtStocks t JOIN ( SELECT symbol, MAX(boughtvalue) AS max_value FROM boughtStocks GROUP BY symbol ) m ON t.symbol = m.symbol AND t.boughtvalue = m.max_value;");
     return rows;
 }
