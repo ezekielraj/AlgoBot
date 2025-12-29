@@ -1,0 +1,53 @@
+cmake_minimum_required(VERSION 3.10)
+project(AlgoBot)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+
+set(CMAKE_CXX_STANDARD 17)
+
+include_directories(
+    include
+    core/include
+    engine/include
+    Interfaces/include
+)
+find_package(CURL REQUIRED)
+find_package(nlohmann_json REQUIRED)
+find_package(SQLite3 REQUIRED)
+
+file(GLOB COMMON
+  core/*.cpp
+)
+
+file(GLOB SOURCES
+ src/*.cpp
+)
+
+file(GLOB ORDER
+ Order/*.cpp
+)
+
+add_executable(AlgoBot ${SOURCES} ${COMMON})
+
+
+add_executable(Order ${ORDER} ${COMMON})
+
+target_compile_definitions(AlgoBot PRIVATE CHILD_PATH="${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Stocks")
+target_link_libraries(AlgoBot
+    PRIVATE
+    CURL::libcurl
+    SQLite::SQLite3
+)
+
+
+target_include_directories(Order
+    PRIVATE 
+        Order/include
+)
+
+target_link_libraries(Order
+    PRIVATE
+    CURL::libcurl
+    nlohmann_json::nlohmann_json
+    SQLite::SQLite3
+    uuid
+)
