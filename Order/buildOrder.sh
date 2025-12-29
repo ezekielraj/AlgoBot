@@ -3,4 +3,5 @@ clang++ -std=c++17 \
     -Iinclude \
     -lcurl \
     -lsqlite3 \
+    -luuid \
     -o OrderApp
