@@ -53,5 +53,5 @@ build.sh
 2025*
 
 .env
-
+*.json
 CMakeLists.txt
